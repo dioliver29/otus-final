@@ -1,0 +1,110 @@
+// @ts-check
+const { devices, chromium } = require('@playwright/test');
+
+/**
+ * Read environment variables from file.
+ * https://github.com/motdotla/dotenv
+ */
+ require('dotenv').config({
+  path: '.env.test'
+});
+
+/**
+ * @see https://playwright.dev/docs/test-configuration
+ * @type {import('@playwright/test').PlaywrightTestConfig}
+ */
+const config = {
+  testDir: './tests',
+  /* Maximum time one test can run for. */
+  timeout: 30 * 1000,
+  expect: {
+
+    timeout: 5000
+  },
+  /* Запуск несколько тестов параллельно */
+    fullyParallel: false, 
+    /* Fail the build on CI if you accidentally left test.only in the source code. */
+    forbidOnly: !!process.env.CI,
+    /* Retry on CI only */
+    retries: process.env.CI ? 2 : 0,
+    /* Opt out of parallel tests on CI. */
+    workers: process.env.CI ? 1 : undefined,
+    /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+
+  reporter: [['html']],
+ /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+ use: {
+  headless: false,
+  /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
+  actionTimeout: 0,
+  /* Base URL to use in actions like `await page.goto('/')`. */
+  //baseURL: 'https://op-develop.uit.kontur/admin',
+  video: 'on',
+  /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+  trace: 'on',
+  //ignoreHTTPSErrors: true,
+ // storageState: 'storageState.json'
+  //'storageState' //'storageState.json'
+},
+//globalSetup: require.resolve('./global-setup'),
+
+/* Configure projects for major browsers */
+projects: [
+   {
+    name: 'chromium',
+    use: {
+      ...devices['Desktop Chrome'],
+    },
+  },
+
+/*   {
+    name: 'firefox',
+    use: {
+      ...devices['Desktop Firefox'],
+    },
+  }, */
+
+ /*  {
+    name: 'webkit',
+    use: {
+      ...devices['Desktop Safari'],
+    },
+  },
+*/
+  /* Test against mobile viewports. */
+  // {
+  //   name: 'Mobile Chrome',
+  //   use: {
+  //     ...devices['Pixel 5'],
+  //   },
+  // },
+  // {
+  //   name: 'Mobile Safari',
+  //   use: {
+  //     ...devices['iPhone 12'],
+  //   },
+  // },
+
+  /* Test against branded browsers. */
+   /* {
+     name: 'Microsoft Edge',
+     use: {
+       channel: 'msedge',
+     },
+   }, */
+   /*{
+     name: 'Google Chrome',
+     use: {
+       channel: 'chrome',
+     },
+   },*/
+  /*  {
+    name: 'Firefox',
+    use: {
+      channel: 'chrome',
+    },
+  }, */
+],
+};
+
+module.exports = config;
