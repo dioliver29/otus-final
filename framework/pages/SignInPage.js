@@ -1,11 +1,14 @@
 const userName = 'Diana Stikheeva';
 const { faker } = require('@faker-js/faker');
 const fakerCountryName = faker.address.country();
+const login = process.env.LOGIN;
+const password = process.env.PASSWORD;
 
 class SignInPage {
     constructor(page){
         this.userName = userName; 
-        this.openMainPage = page.goto(process.env.BASE_URL, { waitUntil: 'domcontentloaded' });
+        this.page = page;
+        //this.openMainPage = page.goto(process.env.BASE_URL, { waitUntil: 'domcontentloaded' });
         this.signInButton = page.getByRole('link', { name: 'account_circle Sign in' }); //кнопка Войти на главной странице
         this.loginInput = page.getByLabel('Username or e-mail address:'); //инпут логина или email
         this.passwordInput = page.getByLabel('Password'); //инпут пароля
@@ -19,8 +22,20 @@ class SignInPage {
         this.countryByFaker = page.getByRole('option', { name: fakerCountryName });
     }
 
-    async successAuthLogin() { //успешная авторизация с логином
-        await this.openMainPage;
+    async visit (page) {
+        return this.page.goto(process.env.BASE_URL, { waitUntil: 'domcontentloaded' })
+    }    
+    
+    async login (login, password) {
+        await this.visit();
+        await this.signInButton.click();
+        await this.loginInput.fill(login);
+        await this.passwordInput.fill(password);
+        await this.signInButtontoAuth.click();
+    }
+
+    /* async successAuthLogin() { //успешная авторизация с логином
+        await this.visit();
         await this.signInButton.click();
         await this.loginInput.fill(process.env.LOGIN);
         await this.passwordInput.fill(process.env.PASSWORD);
@@ -28,7 +43,7 @@ class SignInPage {
     }
 
     async successAuthEmail() { //успешная авторизация с email
-        await this.openMainPage;
+        await this.visit();
         await this.signInButton.click();
         await this.loginInput.fill(process.env.EMAIL);
         await this.passwordInput.fill(process.env.PASSWORD);
@@ -36,12 +51,12 @@ class SignInPage {
     }
 
     async authWithIncorrectPass() { //авторизация с неверным паролем
-        await this.openMainPage;
+        await this.visit();
         await this.signInButton.click();
         await this.loginInput.fill(process.env.LOGIN);
         await this.passwordInput.fill('123');
         await this.signInButtontoAuth.click();
-    }
+    } */
 }
 
 module.exports = {SignInPage};

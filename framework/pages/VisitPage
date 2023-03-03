@@ -1,0 +1,3 @@
+async function visit () {
+    return page.goto(process.env.BASE_URL, { waitUntil: 'domcontentloaded' })
+} 
