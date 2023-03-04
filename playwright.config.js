@@ -50,12 +50,12 @@ const config = {
 
 /* Configure projects for major browsers */
 projects: [
-  /*  {
+   {
     name: 'chromium',
     use: {
       ...devices['Desktop Chrome'],
     },
-  }, */
+  },
 
 /*   {
     name: 'firefox',
@@ -92,12 +92,12 @@ projects: [
        channel: 'msedge',
      },
    }, */
-   {
+   /*{
      name: 'Google Chrome',
      use: {
        channel: 'chrome',
      },
-   },
+   },*/
   /*  {
     name: 'Firefox',
     use: {
