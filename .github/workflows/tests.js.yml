@@ -48,15 +48,8 @@ jobs:
         with:
           name: playwright-report
           path: test-results
-      - name: send telegram message
-        uses: appleboy/telegram-action@master
+      - name: Telegram Message Notify
+        uses: appleboy/telegram-action@v0.1.1
         with:
-          to: ${{ secrets.TELEGRAM_TO.TELEGRAM_TO }}
-          token: ${{ secrets.TELEGRAM_TO.TELEGRAM_TOKEN }}
-          message: |
-            ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
-            
-            Repository: ${{ github.repository }}
-            
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
