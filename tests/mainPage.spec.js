@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test');
 
 test('has title', async ({ page }) => {
-  // @ts-ignore
+  // @ts-expect-error
   await page.goto(process.env.BASE_URL);
   await expect(page).toHaveTitle( "Open Food Facts - World");
 });
@@ -10,14 +10,14 @@ test('has title', async ({ page }) => {
 
 
 test('success authorization with Login ', async ({ page }) => {
-  // @ts-ignore
+  // @ts-expect-error
   await page.goto(process.env.BASE_URL);
   await page.getByRole('link', { name: 'account_circle Sign in' }).click();
   await page.getByLabel('Username or e-mail address:').click();
-  // @ts-ignore
+  // @ts-expect-error
   await page.getByLabel('Username or e-mail address:').fill(process.env.LOGIN);
   await page.getByLabel('Password').click();
-  // @ts-ignore
+  // @ts-expect-error
   await page.getByLabel('Password').fill(process.env.PASSWORD);
   await page.locator('[for="submit"]').locator('[type="submit"]').click();
   await page.getByText('Hello Diana Stikheeva!').isVisible(); 
@@ -31,14 +31,14 @@ test('success authorization with Login ', async ({ page }) => {
 });
 
 test('success authorization with Email ', async ({ page }) => {
-  // @ts-ignore
+  // @ts-expect-error
   await page.goto(process.env.BASE_URL);
   await page.getByRole('link', { name: 'account_circle Sign in' }).click();
   await page.getByLabel('Username or e-mail address:').click();
-  // @ts-ignore
+  // @ts-expect-error
   await page.getByLabel('Username or e-mail address:').fill(process.env.EMAIL);
   await page.getByLabel('Password').click();
-  // @ts-ignore
+  // @ts-expect-error
   await page.getByLabel('Password').fill(process.env.PASSWORD);
   await page.locator('[for="submit"]').locator('[type="submit"]').click();
   await page.getByText('Hello Diana Stikheeva!').isVisible(); 
